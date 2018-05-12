@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.acitivities.MainActivity">
+
+    <com.a7.wallet.views.widgets.NoScrollViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/tab_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <RadioButton
+            android:id="@+id/home_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center|bottom"
+            android:paddingBottom="10dp"
+            android:text="首页"
+            android:textColor="@drawable/tab_txt_color_selector" />
+
+        <RadioButton
+            android:id="@+id/trade_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center|bottom"
+            android:paddingBottom="10dp"
+            android:text="交易"
+            android:textColor="@drawable/tab_txt_color_selector" />
+
+        <RadioButton
+            android:id="@+id/user_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center|bottom"
+            android:paddingBottom="10dp"
+            android:text="我的"
+            android:textColor="@drawable/tab_txt_color_selector" />
+
+    </RadioGroup>
+
+</android.support.constraint.ConstraintLayout>
