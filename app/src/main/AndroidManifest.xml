@@ -8,7 +8,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.acitivities.MainActivity"
+        <activity
+            android:name=".views.acitivities.SplashActivity"
+            android:theme="@style/SplashTheme"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".views.acitivities.MainActivityOld" />
+        <activity android:name=".views.acitivities.MainActivity" />
     </application>
 
 </manifest>

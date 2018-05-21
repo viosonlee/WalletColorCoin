@@ -3,4 +3,11 @@
     <color name="colorPrimary">#0e0e0e</color>
     <color name="colorPrimaryDark">#0e0e0e</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorMainBackground">#101113</color>
+    <color name="titleTxtColor">#ffffff</color>
+    <color name="nameTxtColor">#deffffff</color>
+    <color name="optionTxtColor">#dcffffff</color>
+    <color name="moneyTxtColor">#ffffff</color>
+    <color name="buttonTxtColor">#ffffff</color>
+    <color name="lineColor">#9cffffff</color>
 </resources>

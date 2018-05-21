@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="55dp"
+        android:src="@drawable/ic_avatar_default"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:textColor="@color/nameTxtColor"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="@+id/avatar"
+        app:layout_constraintRight_toRightOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/avatar"
+        tools:text="188****8888" />
+
+    <TextView
+        android:id="@+id/assets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/normal_padding"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:text="资产"
+        android:textColor="@color/optionTxtColor"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/assets_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="￥"
+        android:textColor="@color/moneyTxtColor"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="@+id/assets"
+        app:layout_constraintTop_toBottomOf="@id/assets" />
+
+    <TextView
+        android:id="@+id/assets_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/quarter_padding"
+        android:text="0.00"
+        android:textColor="@color/moneyTxtColor"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toRightOf="@+id/assets_unit"
+        app:layout_constraintTop_toTopOf="@id/assets_unit" />
+
+    <TextView
+        android:id="@+id/currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/quarter_padding"
+        android:text="CNY"
+        android:textColor="@color/moneyTxtColor"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/assets_number"
+        app:layout_constraintLeft_toRightOf="@id/assets_number" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="@dimen/normal_padding"
+        android:layout_marginRight="@dimen/normal_padding"
+        android:background="@drawable/ic_btn_bg"
+        android:text="提币"
+        android:textColor="@color/buttonTxtColor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/assets_unit"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/assets_number">
+
+        <include layout="@layout/line" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:drawableRight="@drawable/ic_arrow"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/normal_padding"
+            android:paddingRight="@dimen/normal_padding"
+            android:text="系统设置"
+            android:textColor="@color/optionTxtColor"
+            android:textSize="16sp" />
+
+        <include layout="@layout/line" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:drawableRight="@drawable/ic_arrow"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/normal_padding"
+            android:paddingRight="@dimen/normal_padding"
+            android:text="邀请注册"
+            android:textColor="@color/optionTxtColor"
+            android:textSize="16sp" />
+
+        <include layout="@layout/line" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:drawableRight="@drawable/ic_arrow"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/normal_padding"
+            android:paddingRight="@dimen/normal_padding"
+            android:text="密钥恢复"
+            android:textColor="@color/optionTxtColor"
+            android:textSize="16sp" />
+
+        <include layout="@layout/line" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/normal_padding"
+                android:text="消息推送"
+                android:textColor="@color/optionTxtColor"
+                android:textSize="16sp" />
+
+            <com.suke.widget.SwitchButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                app:sb_background="#212527"
+                app:sb_button_color="#15181b"
+                app:sb_show_indicator="false"
+                app:sb_checked="true"
+                app:sb_effect_duration="300"
+                app:sb_shadow_color="#15181b"
+                app:sb_uncheck_color="#212527"
+                app:sb_checked_color="#746bfd"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="@dimen/normal_padding"
+                android:layout_marginRight="@dimen/normal_padding" />
+        </RelativeLayout>
+
+        <include layout="@layout/line" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
