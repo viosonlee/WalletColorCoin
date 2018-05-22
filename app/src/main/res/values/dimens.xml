@@ -2,5 +2,6 @@
 <resources>
     <dimen name="titleTxtSize">16sp</dimen>
     <dimen name="normal_padding">16dp</dimen>
+    <dimen name="half_padding">8dp</dimen>
     <dimen name="quarter_padding">4dp</dimen>
 </resources>
