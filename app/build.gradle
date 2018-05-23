@@ -34,5 +34,5 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
-    implementation 'com.github.viosonlee:networklibrary:1.0.0'
+    implementation 'com.github.viosonlee:networklibrary:1.0.2'
 }

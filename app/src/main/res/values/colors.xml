@@ -7,6 +7,7 @@
     <color name="titleTxtColor">#ffffff</color>
     <color name="nameTxtColor">#deffffff</color>
     <color name="optionTxtColor">#dcffffff</color>
+    <color name="linkTxtColor">#8c78eb</color>
     <color name="moneyTxtColor">#ffffff</color>
     <color name="buttonTxtColor">#ffffff</color>
     <color name="lineColor">#212528</color>

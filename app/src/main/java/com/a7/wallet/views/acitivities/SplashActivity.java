@@ -14,32 +14,17 @@ import com.a7.wallet.common.BaseActivityImp;
  * on 2018/5/21.
  * for
  */
-public class SplashActivity extends AppCompatActivity implements BaseActivityImp {
+public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(MainActivity.class);
-                SplashActivity.this.finish();
-            }
+        new Handler().postDelayed(() -> {
+            startActivity(LoginActivity.class);
+            SplashActivity.this.finish();
         }, 1000);
     }
 
-    @Override
-    public void startActivity(Class clazz) {
-        Intent intent = new Intent(this, clazz);
-        startActivity(intent);
-    }
-
-    @Override
-    public void startActivity(Class clazz, Bundle bundle) {
-        Intent intent = new Intent(this, clazz);
-        intent.putExtra(BaseActivityImp.BUNDLE, bundle);
-        startActivity(intent);
-    }
 }

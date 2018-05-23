@@ -21,7 +21,7 @@ import com.a7.wallet.views.fragments.NewsFragment;
  * on 2018/5/18.
  * for
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private ViewPager mVp;
     private Fragment[] fragments;
     private RadioButton[] radioButtons;
