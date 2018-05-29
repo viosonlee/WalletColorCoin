@@ -14,7 +14,7 @@ import com.a7.wallet.common.BaseActivityImp;
  * on 2018/5/21.
  * for
  */
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,9 +22,8 @@ public class SplashActivity extends BaseActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         new Handler().postDelayed(() -> {
-            startActivity(LoginActivity.class);
+            startActivity(new Intent(this,LoginActivity.class));
             SplashActivity.this.finish();
         }, 1000);
     }
-
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/normal_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/address"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@mipmap/icon" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/normal_padding"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:textColor="#d5d5d5"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="fasdfasdfasdgasdfafasdfasdfasdfdfasdfasdffasdfasdfasdgasdfafasdfasdfasdfdfasdfasdf" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/half_padding"
+        android:textColor="#d5d5d5"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@+id/address"
+        app:layout_constraintBaseline_toBaselineOf="@+id/amount"
+        tools:text="05-28 12:00" />
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:textColor="#00cda2"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/address"
+        android:layout_margin="@dimen/normal_padding"
+        android:layout_height="wrap_content"
+        tools:text="-800.00" />
+</android.support.constraint.ConstraintLayout>

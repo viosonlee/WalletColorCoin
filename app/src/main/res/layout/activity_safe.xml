@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_title_bar"
+        android:gravity="center"
+        android:text="验证密码"
+        android:textColor="@color/titleTxtColor"
+        android:textSize="@dimen/titleTxtSize" />
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/height_title_bar"
+        android:textColor="#eb7b0c"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/lock_view"
+        tools:text="" />
+
+    <com.leo.gesturelibray.view.CustomLockView
+        android:id="@+id/lock_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="150dp"
+        app:color_error_ring="#e91515"
+        app:color_on_ring="#64a460"
+        app:color_up_ring="#3ce915"
+        app:inner_background_width="19dp"
+        app:inner_ring_width="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:outer_ring_spacing_width="45dp" />
+</android.support.constraint.ConstraintLayout>

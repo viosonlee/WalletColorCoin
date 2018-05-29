@@ -1,5 +1,7 @@
 package com.a7.wallet.models;
 
+import com.google.gson.annotations.Expose;
+
 import lee.vioson.network.core.BaseResponse;
 
 /**
@@ -8,5 +10,12 @@ import lee.vioson.network.core.BaseResponse;
  * for
  */
 public class UserInfoResponse extends BaseResponse {
-    public UserInfo user;
+    @Expose public UserInfo user;
+
+    @Override
+    public String toString() {
+        return "UserInfoResponse{" +
+                "user=" + user +
+                '}';
+    }
 }

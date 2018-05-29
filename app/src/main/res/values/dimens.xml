@@ -4,4 +4,5 @@
     <dimen name="normal_padding">16dp</dimen>
     <dimen name="half_padding">8dp</dimen>
     <dimen name="quarter_padding">4dp</dimen>
+    <dimen name="height_title_bar">50dp</dimen>
 </resources>

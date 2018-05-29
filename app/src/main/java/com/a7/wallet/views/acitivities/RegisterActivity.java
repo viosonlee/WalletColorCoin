@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.a7.wallet.R;
 import com.a7.wallet.models.LoginInfo;
-import com.a7.wallet.network.DataCallBack;
 import com.a7.wallet.network.Requester;
 import com.a7.wallet.utils.AppDataController;
 
@@ -38,15 +37,13 @@ public class RegisterActivity extends BaseActivity {
     private EditText password;
 
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        initView();
-        bindEvent();
+    protected int getContentLayout() {
+        return R.layout.activity_register;
     }
 
-    private void initView() {
+    protected void initView() {
         registerBtn = findViewById(R.id.register_btn);
         sendVCodeBtn = findViewById(R.id.send_sms_code_btn);
         phone = findViewById(R.id.account);
@@ -54,7 +51,7 @@ public class RegisterActivity extends BaseActivity {
         password = findViewById(R.id.password);
     }
 
-    private void bindEvent() {
+    protected void initEvent() {
         registerBtn.setOnClickListener(this::register);
         sendVCodeBtn.setOnClickListener(this::sendVCode);
         findViewById(R.id.to_login).setOnClickListener(this::toLogin);
@@ -67,9 +64,9 @@ public class RegisterActivity extends BaseActivity {
     private void sendVCode(View view) {
         if (checkPhone()) return;
 
-        Requester.sendVCode(phone.getText().toString().trim(), 0, new DataCallBack(this) {
+        Requester.sendVCode(phone.getText().toString().trim(), 0, new BaseObserver(this) {
             @Override
-            protected void onHandleSuccess(Object baseResponse) {
+            protected void onHandleSuccess(BaseResponse baseResponse) {
                 sendVCodeBtn.setClickable(false);
                 sendVCodeBtn.setTextColor(Color.parseColor("#212528"));
                 conDownHandler.sendEmptyMessage(VCODE_SENT);
@@ -138,10 +135,10 @@ public class RegisterActivity extends BaseActivity {
             Toast.makeText(this, R.string.error_pwd_number, Toast.LENGTH_SHORT).show();
             return;
         }
-        Requester.register(phoneNumber, pwd, "", phoneNumber, "", "", phoneNumber, ""
-                , phoneNumber, smsCode, "", "", "0", new DataCallBack(this) {
+        Requester.register(phoneNumber, pwd, "", phoneNumber, "", "男", phoneNumber, ""
+                , phoneNumber, smsCode, "", "", "1", new BaseObserver(this) {
                     @Override
-                    protected void onHandleSuccess(Object o) {
+                    protected void onHandleSuccess(BaseResponse o) {
                         Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                         LoginInfo loginInfo = new LoginInfo(phoneNumber, pwd);
                         AppDataController.saveLoginInfo(loginInfo);

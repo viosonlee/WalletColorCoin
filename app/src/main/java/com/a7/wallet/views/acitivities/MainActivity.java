@@ -26,10 +26,10 @@ public class MainActivity extends BaseActivity {
     private Fragment[] fragments;
     private RadioButton[] radioButtons;
     private TextView title;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_new);
+    protected void initView() {
+        super.initView();
         title = findViewById(R.id.title);
         mVp = findViewById(R.id.view_pager);
         radioButtons = new RadioButton[4];
@@ -71,8 +71,7 @@ public class MainActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 radioButtons[position].setChecked(true);
-                switch (position)
-                {
+                switch (position) {
                     case 0:
                         title.setText("总资产");
                         break;
@@ -88,5 +87,10 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected int getContentLayout() {
+        return R.layout.activity_main_new;
     }
 }

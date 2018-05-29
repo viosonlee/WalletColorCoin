@@ -1,5 +1,10 @@
 package com.a7.wallet.models;
 
+import com.google.gson.annotations.Expose;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import lee.vioson.network.core.BaseResponse;
 
 /**
@@ -27,20 +32,35 @@ public class UserInfo extends BaseResponse {
      * walletAddr : 16945d69f6e9448d8976cc1fabf236d1af60c818d6f44b7484da99b3cf6caadb
      */
 
+    @Expose
     private String accountName;
+    @Expose
     private long createTime;
-    private int diamondCoin;
+    @Expose
+    private BigDecimal diamondCoin;
+    @Expose
     private String email;
+    @Expose
     private String head;
+    @Expose
     private int id;
+    @Expose
     private String idcard;
+    @Expose
     private String name;
+    @Expose
     private String nick;
+    @Expose
     private String phone;
+    @Expose
     private int pwdEncrypted;
+    @Expose
     private String sex;
+    @Expose
     private int status;
+    @Expose
     private String token;
+    @Expose
     private String walletAddr;
 
     public String getAccountName() {
@@ -59,11 +79,11 @@ public class UserInfo extends BaseResponse {
         this.createTime = createTime;
     }
 
-    public int getDiamondCoin() {
+    public BigDecimal getDiamondCoin() {
         return diamondCoin;
     }
 
-    public void setDiamondCoin(int diamondCoin) {
+    public void setDiamondCoin(BigDecimal diamondCoin) {
         this.diamondCoin = diamondCoin;
     }
 
@@ -161,5 +181,26 @@ public class UserInfo extends BaseResponse {
 
     public void setWalletAddr(String walletAddr) {
         this.walletAddr = walletAddr;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "accountName='" + accountName + '\'' +
+                ", createTime=" + createTime +
+                ", diamondCoin=" + diamondCoin +
+                ", email='" + email + '\'' +
+                ", head='" + head + '\'' +
+                ", id=" + id +
+                ", idcard='" + idcard + '\'' +
+                ", name='" + name + '\'' +
+                ", nick='" + nick + '\'' +
+                ", phone='" + phone + '\'' +
+                ", pwdEncrypted=" + pwdEncrypted +
+                ", sex='" + sex + '\'' +
+                ", status=" + status +
+                ", token='" + token + '\'' +
+                ", walletAddr='" + walletAddr + '\'' +
+                '}';
     }
 }

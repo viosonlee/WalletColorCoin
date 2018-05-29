@@ -22,6 +22,7 @@ public class AppDataController {
     private static final String USER_INFO = "user_info";
     private static final String AUTO_LOGIN = "auto_login";
     private static final String LOGIN_INFO = "login_info";
+    private static final String SAFE_PASSWORD = "safe_password";
 
     public static UserInfo getUserInfo() {
         String string = SpUtil.with(App.APP_CONTEXT)
@@ -57,7 +58,7 @@ public class AppDataController {
     }
 
     public static boolean isLogin() {
-        return !TextUtils.isEmpty(SpUtil.with(App.APP_CONTEXT).getString(APP_DATA_TABLE, LOGIN_INFO));
+        return !TextUtils.isEmpty(SpUtil.with(App.APP_CONTEXT).getString(APP_DATA_TABLE, USER_INFO));
     }
 
 
@@ -70,4 +71,16 @@ public class AppDataController {
     }
 
 
+    public static void logout() {
+        saveUserInfo(null);
+    }
+
+    public static void saveSafePassWord(String password) {
+        SpUtil.with(App.APP_CONTEXT)
+                .saveString(APP_DATA_TABLE, SAFE_PASSWORD, password);
+    }
+
+    public static String getSafePassword() {
+        return SpUtil.with(App.APP_CONTEXT).getString(APP_DATA_TABLE, SAFE_PASSWORD);
+    }
 }

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1d2022">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_title_bar"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:onClick="back"
+            android:padding="@dimen/normal_padding"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="交易记录"
+            android:textColor="@color/titleTxtColor"
+            android:textSize="@dimen/titleTxtSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/bg_item_gray"
+        android:drawableLeft="@drawable/ic_logo_small"
+        android:drawablePadding="@dimen/half_padding"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/normal_padding"
+        android:text="彩虹币转账"
+        android:textColor="#d5d5d5"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:background="@drawable/bg_item_gray"
+        android:padding="@dimen/normal_padding"
+        app:layout_constraintTop_toBottomOf="@+id/content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="付款金额"
+            android:textColor="#d5d5d5"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/amount" />
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="-500.00" />
+
+        <TextView
+            android:id="@+id/address_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_padding"
+            android:text="收款方地址"
+            android:textColor="#d5d5d5"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/amount" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/half_padding"
+            android:layout_marginTop="@dimen/half_padding"
+            android:textColor="#d5d5d5"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@+id/address_item"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/amount"
+            tools:text="sdfasdfsdfasdgasdfasdfasdfgasdfasdfasdfasdfasdf" />
+
+        <TextView
+            android:id="@+id/mark_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_padding"
+            android:text="备注"
+            android:textColor="#d5d5d5"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/address" />
+
+        <TextView
+            android:id="@+id/mark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_padding"
+            android:gravity="right"
+            android:textColor="#d5d5d5"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@+id/mark_item"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/address"
+            tools:text="备注内容同" />
+
+        <TextView
+            android:id="@+id/time_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_padding"
+            android:text="转账时间"
+            android:textColor="#d5d5d5"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/mark" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_padding"
+            android:gravity="right"
+            android:textColor="#d5d5d5"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@+id/mark_item"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mark"
+            tools:text="2018-05-28 12:03:53" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

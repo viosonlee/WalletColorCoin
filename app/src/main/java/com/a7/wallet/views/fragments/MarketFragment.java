@@ -57,10 +57,17 @@ public class MarketFragment extends Fragment {
                 if (market.gains > 0) {
                     holder.setText(R.id.gains, "+" + market.gains + "%");
                     holder.getTextView(R.id.gains).setVisibility(View.VISIBLE);
+                    holder.getTextView(R.id.zore).setVisibility(View.GONE);
+                    holder.getTextView(R.id.drop).setVisibility(View.GONE);
+                } else if (market.gains == 0) {
+                    holder.setText(R.id.zore, "+" + market.gains + "%");
+                    holder.getTextView(R.id.zore).setVisibility(View.VISIBLE);
+                    holder.getTextView(R.id.gains).setVisibility(View.GONE);
                     holder.getTextView(R.id.drop).setVisibility(View.GONE);
                 } else {
-                    holder.setText(R.id.drop,  market.gains + "%");
+                    holder.setText(R.id.drop, market.gains + "%");
                     holder.getTextView(R.id.drop).setVisibility(View.VISIBLE);
+                    holder.getTextView(R.id.zore).setVisibility(View.GONE);
                     holder.getTextView(R.id.gains).setVisibility(View.GONE);
                 }
             }
@@ -87,28 +94,12 @@ public class MarketFragment extends Fragment {
         m1.gains = 0.82;
         m1.currencyValue = 0.00;
         m1.currencyNumber = 0.00;
-        m1.shortCurrencyName = "AQC";
-        m1.currencyName = "AoqiCoin";
+        m1.shortCurrencyName = "RPC";
+        m1.currencyName = "RainbowCoin";
         m1.iconId = R.mipmap.icon;
 
-        Market m2 = new Market();
-        m2.gains = 0.82;
-        m2.currencyValue = 0.00;
-        m2.currencyNumber = 0.00;
-        m2.shortCurrencyName = "BTC";
-        m2.currencyName = "BitCoin";
-        m2.iconId = R.drawable.ic_btc;
-
-        Market m3 = new Market();
-        m3.gains = -4.76;
-        m3.currencyValue = 0.00;
-        m3.currencyNumber = 0.00;
-        m3.shortCurrencyName = "ETH";
-        m3.currencyName = "Ethereum";
-        m3.iconId = R.drawable.ic_eth;
         data.add(m1);
-        data.add(m2);
-        data.add(m3);
+
     }
 
     @Nullable

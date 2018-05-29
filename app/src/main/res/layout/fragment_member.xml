@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/quarter_padding"
-        android:text="CNY"
+        android:text="RPC"
         android:textColor="@color/moneyTxtColor"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@id/assets_number"
@@ -106,30 +106,20 @@
         <include layout="@layout/line" />
 
         <TextView
+            android:id="@+id/exchange_list"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:drawableRight="@drawable/ic_arrow"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/normal_padding"
             android:paddingRight="@dimen/normal_padding"
-            android:text="邀请注册"
+            android:text="交易记录"
             android:textColor="@color/optionTxtColor"
             android:textSize="16sp" />
 
         <include layout="@layout/line" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:drawableRight="@drawable/ic_arrow"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/normal_padding"
-            android:paddingRight="@dimen/normal_padding"
-            android:text="密钥恢复"
-            android:textColor="@color/optionTxtColor"
-            android:textSize="16sp" />
 
-        <include layout="@layout/line" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -148,21 +138,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                app:sb_background="#212527"
-                app:sb_button_color="#15181b"
-                app:sb_show_indicator="false"
-                app:sb_checked="true"
-                app:sb_effect_duration="300"
-                app:sb_shadow_color="#15181b"
-                app:sb_uncheck_color="#212527"
-                app:sb_checked_color="#746bfd"
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="@dimen/normal_padding"
-                android:layout_marginRight="@dimen/normal_padding" />
+                android:layout_marginRight="@dimen/normal_padding"
+                app:sb_background="#212527"
+                app:sb_button_color="#15181b"
+                app:sb_checked="true"
+                app:sb_checked_color="#746bfd"
+                app:sb_effect_duration="300"
+                app:sb_shadow_color="#15181b"
+                app:sb_show_indicator="false"
+                app:sb_uncheck_color="#212527" />
         </RelativeLayout>
 
         <include layout="@layout/line" />
 
+
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_btn_background"
+        android:gravity="center"
+        android:paddingLeft="@dimen/normal_padding"
+        android:paddingRight="@dimen/normal_padding"
+        android:text="退出登录"
+        android:textColor="@color/optionTxtColor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </android.support.constraint.ConstraintLayout>

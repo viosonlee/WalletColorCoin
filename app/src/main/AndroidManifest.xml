@@ -29,6 +29,11 @@
             android:launchMode="singleTask" />
         <activity android:name=".views.acitivities.RegisterActivity" />
         <activity android:name=".views.acitivities.ForgotPwdActivity" />
+        <activity android:name=".views.acitivities.PersonQRCodeActivity" />
+        <activity android:name=".views.acitivities.ExchangeActivity" />
+        <activity android:name=".views.acitivities.ExchangeHistoryActivity" />
+        <activity android:name=".views.acitivities.ExchangeDetailActivity" />
+        <activity android:name=".views.acitivities.SafeActivity" />
     </application>
 
 </manifest>

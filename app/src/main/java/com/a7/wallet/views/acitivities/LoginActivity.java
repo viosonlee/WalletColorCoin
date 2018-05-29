@@ -1,21 +1,20 @@
 package com.a7.wallet.views.acitivities;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.a7.wallet.App;
 import com.a7.wallet.R;
 import com.a7.wallet.models.LoginInfo;
-import com.a7.wallet.models.UserInfo;
-import com.a7.wallet.network.DataCallBack;
+import com.a7.wallet.models.UserInfoResponse;
 import com.a7.wallet.network.Requester;
 import com.a7.wallet.utils.AppDataController;
+import com.leo.gesturelibray.enums.LockMode;
 
+import lee.vioson.network.core.BaseApiException;
 import lee.vioson.network.core.BaseObserver;
-import lee.vioson.network.core.BaseResponse;
 
 /**
  * Created by viosonlee
@@ -27,28 +26,35 @@ public class LoginActivity extends BaseActivity {
     private EditText phone;
     private EditText password;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        initView();
-        bindEvent();
-        initData();
+    protected int getContentLayout() {
+        return R.layout.activity_login;
     }
 
-    private void initView() {
+    protected void initView() {
         phone = findViewById(R.id.account);
         password = findViewById(R.id.password);
+        if (AppDataController.isLogin()) {
+            if (!TextUtils.isEmpty(AppDataController.getSafePassword())) {//去设置图案密码
+                SafeActivity.launch(activity, LockMode.VERIFY_PASSWORD);
+            } else {
+                startActivity(MainActivity.class);
+            }
+            activity.finish();
+        }
     }
 
-    private void bindEvent() {
+    @Override
+    protected void initEvent() {
+        super.initEvent();
         findViewById(R.id.login_btn).setOnClickListener(this::login);
         findViewById(R.id.forgot_pwd).setOnClickListener(this::forgotPwd);
         findViewById(R.id.to_register).setOnClickListener(this::toRegister);
-
     }
 
-    private void initData() {
+
+    protected void loadLoginInfo() {
         LoginInfo loginInfo = AppDataController.getLoginInfo();
         if (!TextUtils.isEmpty(loginInfo.phone)) {
             phone.setText(loginInfo.phone);
@@ -56,6 +62,12 @@ public class LoginActivity extends BaseActivity {
         if (!TextUtils.isEmpty(loginInfo.password)) {
             password.setText(loginInfo.password);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadLoginInfo();
     }
 
     private void toRegister(View view) {
@@ -74,15 +86,23 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(this, R.string.error_pwd_number, Toast.LENGTH_SHORT).show();
             return;
         }
-        Requester.login(phoneNumber, pwd, 0, new DataCallBack<UserInfo>(this) {
+        Requester.login(phoneNumber, pwd, 1, new BaseObserver<UserInfoResponse>(this) {
             @Override
-            protected void onHandleSuccess(UserInfo userInfo) {
-                startActivity(MainActivity.class);
+            protected void onHandleSuccess(UserInfoResponse userInfo) {
+                AppDataController.saveUserInfo(userInfo.user);
+                AppDataController.saveLoginInfo(new LoginInfo(phoneNumber, pwd));
+                if (TextUtils.isEmpty(AppDataController.getSafePassword())) {//去设置图案密码
+                    SafeActivity.launch(activity, LockMode.SETTING_PASSWORD);
+                    Toast.makeText(activity, "为保障安全，请设置手势密码", Toast.LENGTH_LONG).show();
+                } else {
+                    SafeActivity.launch(activity, LockMode.VERIFY_PASSWORD);
+                    activity.finish();
+                }
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            protected void onHandleError(BaseApiException e) {
+                super.onHandleError(e);
                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

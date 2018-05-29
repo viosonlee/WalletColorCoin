@@ -24,6 +24,7 @@
         android:drawablePadding="@dimen/normal_padding"
         android:hint="手机号"
         android:lines="1"
+        android:inputType="phone"
         android:maxLength="11"
         android:padding="@dimen/normal_padding"
         android:singleLine="true"
@@ -80,6 +81,7 @@
         android:textColor="#ffffff"
         android:textColorHint="#d5d5d5"
         android:textSize="14sp"
+        android:inputType="textPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sms_code" />

@@ -14,12 +14,14 @@ import android.widget.Toast;
 
 import com.a7.wallet.R;
 import com.a7.wallet.models.LoginInfo;
-import com.a7.wallet.network.DataCallBack;
 import com.a7.wallet.network.Requester;
 import com.a7.wallet.utils.AppDataController;
 
 import java.lang.ref.WeakReference;
 import java.util.Locale;
+
+import lee.vioson.network.core.BaseObserver;
+import lee.vioson.network.core.BaseResponse;
 
 /**
  * Created by viosonlee
@@ -34,15 +36,13 @@ public class ForgotPwdActivity extends BaseActivity {
     private EditText vCode;
     private EditText password;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_pwd);
-        initView();
-        bindEvent();
+    protected int getContentLayout() {
+        return R.layout.activity_forgot_pwd;
     }
 
-    private void initView() {
+    protected void initView() {
         registerBtn = findViewById(R.id.register_btn);
         sendVCodeBtn = findViewById(R.id.send_sms_code_btn);
         phone = findViewById(R.id.account);
@@ -50,16 +50,19 @@ public class ForgotPwdActivity extends BaseActivity {
         password = findViewById(R.id.password);
     }
 
-    private void bindEvent() {
+    @Override
+    protected void initEvent() {
+        super.initEvent();
         registerBtn.setOnClickListener(this::commit);
         sendVCodeBtn.setOnClickListener(this::sendVCode);
     }
 
+
     private void sendVCode(View view) {
         if (checkPhone()) return;
-        Requester.sendVCode(phone.getText().toString().trim(), 1, new DataCallBack(this) {
+        Requester.sendVCode(phone.getText().toString().trim(), 1, new BaseObserver(this) {
             @Override
-            protected void onHandleSuccess(Object baseResponse) {
+            protected void onHandleSuccess(BaseResponse baseResponse) {
                 sendVCodeBtn.setClickable(false);
                 sendVCodeBtn.setTextColor(Color.parseColor("#212528"));
                 conDownHandler.sendEmptyMessage(VCODE_SENT);
@@ -68,6 +71,7 @@ public class ForgotPwdActivity extends BaseActivity {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
+                onDismissLoading();
                 Toast.makeText(ForgotPwdActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -128,9 +132,9 @@ public class ForgotPwdActivity extends BaseActivity {
             Toast.makeText(this, R.string.error_pwd_number, Toast.LENGTH_SHORT).show();
             return;
         }
-        Requester.editPassword(phoneNumber, "", "1", pwd, smsCode, new DataCallBack(this) {
+        Requester.editPassword(phoneNumber, "", "1", pwd, smsCode, new BaseObserver(this) {
             @Override
-            protected void onHandleSuccess(Object o) {
+            protected void onHandleSuccess(BaseResponse o) {
                 Toast.makeText(ForgotPwdActivity.this, "修改密码成功", Toast.LENGTH_SHORT).show();
                 LoginInfo loginInfo = new LoginInfo(phoneNumber, pwd);
                 AppDataController.saveLoginInfo(loginInfo);
