@@ -3,6 +3,7 @@ package com.a7.wallet.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import lee.vioson.network.core.BaseResponse;
@@ -12,7 +13,7 @@ import lee.vioson.network.core.BaseResponse;
  * on 2018/5/23.
  * for
  */
-public class PayLogResponse extends BaseResponse {
+public class PayLogResponse extends MatherResponse {
 
 
     /**
@@ -150,7 +151,7 @@ public class PayLogResponse extends BaseResponse {
             }
         }
 
-        public static class ListBean  implements Parcelable{
+        public static class ListBean implements Parcelable {
             /**
              * content : 转账
              * createTime : 1526972569000
@@ -270,6 +271,10 @@ public class PayLogResponse extends BaseResponse {
 
             public double getNum() {
                 return num;
+            }
+
+            public String getNumber() {
+                return new DecimalFormat("#.00").format(num);
             }
 
             public void setNum(double num) {

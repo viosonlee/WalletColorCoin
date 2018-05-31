@@ -14,8 +14,11 @@ import android.widget.Toast;
 
 import com.a7.wallet.R;
 import com.a7.wallet.models.LoginInfo;
+import com.a7.wallet.models.MatherResponse;
+import com.a7.wallet.network.DataCallBack;
 import com.a7.wallet.network.Requester;
 import com.a7.wallet.utils.AppDataController;
+import com.a7.wallet.utils.AppMD5Util;
 
 import java.lang.ref.WeakReference;
 import java.util.Locale;
@@ -35,7 +38,6 @@ public class RegisterActivity extends BaseActivity {
     private EditText phone;
     private EditText vCode;
     private EditText password;
-
 
 
     @Override
@@ -64,9 +66,9 @@ public class RegisterActivity extends BaseActivity {
     private void sendVCode(View view) {
         if (checkPhone()) return;
 
-        Requester.sendVCode(phone.getText().toString().trim(), 0, new BaseObserver(this) {
+        Requester.sendVCode(phone.getText().toString().trim(), 0, new DataCallBack<MatherResponse>(this) {
             @Override
-            protected void onHandleSuccess(BaseResponse baseResponse) {
+            protected void onHandleSuccess(MatherResponse baseResponse) {
                 sendVCodeBtn.setClickable(false);
                 sendVCodeBtn.setTextColor(Color.parseColor("#212528"));
                 conDownHandler.sendEmptyMessage(VCODE_SENT);
@@ -135,10 +137,11 @@ public class RegisterActivity extends BaseActivity {
             Toast.makeText(this, R.string.error_pwd_number, Toast.LENGTH_SHORT).show();
             return;
         }
-        Requester.register(phoneNumber, pwd, "", phoneNumber, "", "男", phoneNumber, ""
-                , phoneNumber, smsCode, "", "", "1", new BaseObserver(this) {
+       String  pwdMD5 = AppMD5Util.getMD5(pwd);//MD5加密
+        Requester.register(phoneNumber, pwdMD5, "", phoneNumber, "", "男", phoneNumber, ""
+                , phoneNumber, smsCode, "", "", "1", new DataCallBack<MatherResponse>(this) {
                     @Override
-                    protected void onHandleSuccess(BaseResponse o) {
+                    protected void onHandleSuccess(MatherResponse o) {
                         Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                         LoginInfo loginInfo = new LoginInfo(phoneNumber, pwd);
                         AppDataController.saveLoginInfo(loginInfo);

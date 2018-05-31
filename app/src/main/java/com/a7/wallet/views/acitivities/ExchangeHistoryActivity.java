@@ -8,7 +8,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.a7.wallet.R;
+import com.a7.wallet.models.MatherResponse;
 import com.a7.wallet.models.PayLogResponse;
+import com.a7.wallet.network.DataCallBack;
 import com.a7.wallet.network.Requester;
 import com.a7.wallet.utils.AppDataController;
 import com.a7.wallet.utils.BitmapUtil;
@@ -53,15 +55,15 @@ public class ExchangeHistoryActivity extends BaseActivity {
                 holder.setText(R.id.address, walletAddr1);
                 holder.setText(R.id.time, DateUtil.getMinute(listBean.getCreateTime()));
                 TextView amount = holder.getTextView(R.id.amount);
-                double num = listBean.getNum();
-                if (num > 0) {
+                if (listBean.getNum() > 0) {
                     amount.setTextColor(Color.parseColor("#00cda2"));
-                    amount.setText("+"+String.format(num + ""));
+                    amount.setText("+" + listBean.getNumber());
                 } else {
                     amount.setTextColor(Color.parseColor("#e2525e"));
-                    amount.setText(String.valueOf(num));
+                    amount.setText(listBean.getNumber());
                 }
-                String avatarStr = walletAddr1.substring(walletAddr1.length() - 4);
+                String avatarStr = walletAddr1.substring(walletAddr1.length() - 4, walletAddr1.length() - 2)
+                        + "\n"+walletAddr1.substring(walletAddr1.length() - 2);
                 holder.getImageView(R.id.avatar).setImageBitmap(BitmapUtil.strCreateBitmap(avatarStr));
             }
 
@@ -98,7 +100,7 @@ public class ExchangeHistoryActivity extends BaseActivity {
 
     private void loadData() {
         Requester.findPayLog(AppDataController.getUserInfo().getId() + "", "",
-                1, 3, page, new BaseObserver<PayLogResponse>(this) {
+                1, 3, page, new DataCallBack<PayLogResponse>(this) {
                     @Override
                     protected void onHandleSuccess(PayLogResponse response) {
                         payLogResponse = response;

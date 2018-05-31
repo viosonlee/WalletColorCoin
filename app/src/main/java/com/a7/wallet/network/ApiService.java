@@ -1,12 +1,12 @@
 package com.a7.wallet.network;
 
 import com.a7.wallet.models.EditHeadPicResponse;
+import com.a7.wallet.models.MatherResponse;
 import com.a7.wallet.models.PayLogResponse;
 import com.a7.wallet.models.UserInfo;
 import com.a7.wallet.models.UserInfoResponse;
 
 import io.reactivex.Observable;
-import lee.vioson.network.core.BaseResponse;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -20,17 +20,17 @@ import retrofit2.http.POST;
 public interface ApiService {
     @FormUrlEncoded
     @POST("/user/sendCodeToTel")
-    Observable<BaseResponse> sendCodeToTel(@Field("tel") String tel, @Field("type") int type);
+    Observable<MatherResponse> sendCodeToTel(@Field("tel") String tel, @Field("type") int type);
 
     @FormUrlEncoded
     @POST("/user/checkSmsCode")
         /*校验验证码*/
-    Observable<BaseResponse> checkVCode(@Field("tel") String tel, @Field("smsCode") int VCode);
+    Observable<MatherResponse> checkVCode(@Field("tel") String tel, @Field("smsCode") int VCode);
 
     @FormUrlEncoded
     @POST("/user/reg")
         /*注册*/
-    Observable<BaseResponse> register(@Field("u.accountName") String accountName, @Field("u.pwd") String password,
+    Observable<MatherResponse> register(@Field("u.accountName") String accountName, @Field("u.pwd") String password,
                                       @Field("u.email") String email, @Field("u.nick") String nickName,
                                       @Field("u.head") String headUrl, @Field("u.sex") String sex,
                                       @Field("u.name") String name, @Field("u.idcard") String iDCard,
@@ -46,7 +46,7 @@ public interface ApiService {
 
     @GET("/user/logout")
         /*登出*/
-    Observable<BaseResponse> logout();
+    Observable<MatherResponse> logout();
 
     @FormUrlEncoded
     @POST("/user/editHeadPic")
@@ -57,9 +57,15 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/user/editPwd")
         /*用户密码修改*/
-    Observable<BaseResponse> editPassword(@Field("tel") String tel, @Field("opwd") String oldPwd,
+    Observable<MatherResponse> editPassword(@Field("tel") String tel, @Field("opwd") String oldPwd,
                                           @Field("type") String type, @Field("pwd") String pwd,
                                           @Field("smsCode") String smsCode);
+
+    @FormUrlEncoded
+    @POST("/user/editPayPwd")
+    Observable<MatherResponse> editPayPwd(@Field("tel") String phone, @Field("oldPayPwd") String oldPayPwd,
+                                      @Field("type") int type/*1用验证码改密码,其他用旧密码*/,
+                                      @Field("payPwd") String payPwd, @Field("smsCode") String smsCode);
 
     @FormUrlEncoded
     @POST("/user/editByPlayer")
@@ -80,7 +86,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("/user/exchangeDiamondCoin")
-    Observable<BaseResponse> exchangeDiamondCoin(@Field("userid") String userId, @Field("toUserid") String toUserID, @Field("amount") double amount);
+    Observable<MatherResponse> exchangeDiamondCoin(@Field("userid") String userId, @Field("toUserid") String toUserID, @Field("amount") double amount);
 
     @FormUrlEncoded
     @POST("/user/findPayLog")
@@ -89,7 +95,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("/user/exchangeDiamondCoin1")
-    Observable<BaseResponse> exchangeDiamondCoin1(@Field("walletAddr") String walletAddr, @Field("toWalletAddr") String toWalletAddr, @Field("amount") double amount);
+    Observable<MatherResponse> exchangeDiamondCoin1(@Field("walletAddr") String walletAddr, @Field("toWalletAddr") String toWalletAddr, @Field("amount") double amount);
 
     @FormUrlEncoded
     @POST("/user/findPayLog1")

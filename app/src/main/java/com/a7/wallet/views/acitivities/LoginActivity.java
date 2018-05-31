@@ -1,20 +1,22 @@
 package com.a7.wallet.views.acitivities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.a7.wallet.App;
 import com.a7.wallet.R;
 import com.a7.wallet.models.LoginInfo;
 import com.a7.wallet.models.UserInfoResponse;
+import com.a7.wallet.network.DataCallBack;
 import com.a7.wallet.network.Requester;
 import com.a7.wallet.utils.AppDataController;
+import com.a7.wallet.utils.AppMD5Util;
 import com.leo.gesturelibray.enums.LockMode;
 
 import lee.vioson.network.core.BaseApiException;
-import lee.vioson.network.core.BaseObserver;
 
 /**
  * Created by viosonlee
@@ -86,7 +88,7 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(this, R.string.error_pwd_number, Toast.LENGTH_SHORT).show();
             return;
         }
-        Requester.login(phoneNumber, pwd, 1, new BaseObserver<UserInfoResponse>(this) {
+        Requester.login(phoneNumber, AppMD5Util.getMD5(pwd), 1, new DataCallBack<UserInfoResponse>(this) {
             @Override
             protected void onHandleSuccess(UserInfoResponse userInfo) {
                 AppDataController.saveUserInfo(userInfo.user);
@@ -114,5 +116,12 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(this, R.string.error_empty_phone_number, Toast.LENGTH_SHORT).show();
         }
         return empty;
+    }
+
+    public static void reLogin(Context appContext) {
+        AppDataController.logout();
+        Intent intent = new Intent(appContext, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        appContext.startActivity(intent);
     }
 }

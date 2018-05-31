@@ -14,8 +14,10 @@ import android.widget.Toast;
 
 import com.a7.wallet.R;
 import com.a7.wallet.models.LoginInfo;
+import com.a7.wallet.network.DataCallBack;
 import com.a7.wallet.network.Requester;
 import com.a7.wallet.utils.AppDataController;
+import com.a7.wallet.utils.AppMD5Util;
 
 import java.lang.ref.WeakReference;
 import java.util.Locale;
@@ -60,7 +62,7 @@ public class ForgotPwdActivity extends BaseActivity {
 
     private void sendVCode(View view) {
         if (checkPhone()) return;
-        Requester.sendVCode(phone.getText().toString().trim(), 1, new BaseObserver(this) {
+        Requester.sendVCode(phone.getText().toString().trim(), 1, new DataCallBack(this) {
             @Override
             protected void onHandleSuccess(BaseResponse baseResponse) {
                 sendVCodeBtn.setClickable(false);
@@ -132,7 +134,7 @@ public class ForgotPwdActivity extends BaseActivity {
             Toast.makeText(this, R.string.error_pwd_number, Toast.LENGTH_SHORT).show();
             return;
         }
-        Requester.editPassword(phoneNumber, "", "1", pwd, smsCode, new BaseObserver(this) {
+        Requester.editPassword(phoneNumber, "", "1", AppMD5Util.getMD5(pwd), smsCode, new DataCallBack(this) {
             @Override
             protected void onHandleSuccess(BaseResponse o) {
                 Toast.makeText(ForgotPwdActivity.this, "修改密码成功", Toast.LENGTH_SHORT).show();

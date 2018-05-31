@@ -59,7 +59,10 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingL
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
     }
-
+    public void startActivityForResult(Class clazz,int requestCode) {
+        Intent intent = new Intent(this, clazz);
+        startActivityForResult(intent,requestCode);
+    }
     public void startActivity(Class clazz, Bundle bundle) {
         Intent intent = new Intent(this, clazz);
         intent.putExtra(BaseActivityImp.BUNDLE, bundle);

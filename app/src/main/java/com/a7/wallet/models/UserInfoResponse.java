@@ -9,7 +9,7 @@ import lee.vioson.network.core.BaseResponse;
  * on 2018/5/23.
  * for
  */
-public class UserInfoResponse extends BaseResponse {
+public class UserInfoResponse extends MatherResponse {
     @Expose public UserInfo user;
 
     @Override

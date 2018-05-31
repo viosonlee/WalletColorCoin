@@ -1,7 +1,9 @@
 package com.a7.wallet.views.acitivities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -9,9 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.a7.wallet.R;
+import com.a7.wallet.models.MatherResponse;
 import com.a7.wallet.models.QrData;
+import com.a7.wallet.network.DataCallBack;
 import com.a7.wallet.network.Requester;
 import com.a7.wallet.utils.AppDataController;
+import com.a7.wallet.views.fragments.PayPasswordDialog;
 import com.github.shenyuanqing.zxingsimplify.zxing.Activity.CaptureActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -26,11 +31,20 @@ import lee.vioson.network.utils.JSONUtils;
  * on 2018/5/26.
  * for 转账
  */
-public class ExchangeActivity extends BaseActivity {
-
-
+public class ExchangeActivity extends BaseActivity implements PayPasswordDialog.PayKeyBoardListener {
     private static final int REQUEST_SCAN = 0x00012;
+    private static final int REQUEST_SET_PAY_PASSWORD = 0x00013;
+    private static final String QR_DATA = "qr_data";
     private RxPermissions rxPermissions;
+    private String address;
+    private String amountStr;
+    private PayPasswordDialog payPasswordDialog;
+
+    public static void launch(Context context, QrData qrData) {
+        Intent intent = new Intent(context, ExchangeActivity.class);
+        intent.putExtra(QR_DATA, qrData);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getContentLayout() {
@@ -41,13 +55,19 @@ public class ExchangeActivity extends BaseActivity {
     private EditText inputAmount;
     private TextView amount;
 
+
     @Override
     protected void initView() {
         rxPermissions = new RxPermissions(activity);
         inputAddress = findViewById(R.id.input_address);
         inputAmount = findViewById(R.id.input_amount);
         amount = findViewById(R.id.amount);
-        amount.setText(AppDataController.getUserInfo().getDiamondCoin() + "");
+        amount.setText(AppDataController.getUserInfo().getDiamondCoinAmount());
+        QrData qrData = getIntent().getParcelableExtra(QR_DATA);
+        if (qrData != null) {
+            inputAddress.setText(qrData.address);
+            inputAmount.setText(qrData.amount + "");
+        }
     }
 
     @Override
@@ -61,8 +81,8 @@ public class ExchangeActivity extends BaseActivity {
 
     public void exchange(View view) {
         //转账
-        String address = inputAddress.getText().toString().trim();
-        String amountStr = inputAmount.getText().toString().trim();
+        address = inputAddress.getText().toString().trim();
+        amountStr = inputAmount.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {
             Toast.makeText(activity, "地址不能为空", Toast.LENGTH_SHORT).show();
             return;
@@ -71,20 +91,16 @@ public class ExchangeActivity extends BaseActivity {
             Toast.makeText(activity, "金额不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        Requester.exchangeDiamondCoinByAddress(AppDataController.getUserInfo().getWalletAddr(), address,
-                Double.parseDouble(amountStr), new BaseObserver<BaseResponse>() {
-                    @Override
-                    protected void onHandleSuccess(BaseResponse data) {
-                        Toast.makeText(activity, "转账成功", Toast.LENGTH_SHORT).show();
-                        activity.finish();
-                    }
-
-                    @Override
-                    protected void onHandleError(BaseApiException e) {
-                        super.onHandleError(e);
-                        Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        if (AppDataController.hasPayPwd()) {
+            if (payPasswordDialog == null) {
+                payPasswordDialog = new PayPasswordDialog();
+                payPasswordDialog.setPayKeyBoardListener(this);
+            }
+            payPasswordDialog.show(getSupportFragmentManager());
+        } else {
+            Toast.makeText(activity, "请先设置支付密码", Toast.LENGTH_SHORT).show();
+            startActivityForResult(new Intent(this, EditPayPasswordActivity.class), REQUEST_SET_PAY_PASSWORD);
+        }
 
     }
 
@@ -115,6 +131,37 @@ public class ExchangeActivity extends BaseActivity {
                     Toast.makeText(activity, "二维码错误", Toast.LENGTH_SHORT).show();
                 }
             }
+        } else if (requestCode == REQUEST_SET_PAY_PASSWORD && resultCode == RESULT_OK) {
+            exchange(null);
         }
+    }
+
+    @Override
+    public void onInputPayPwdCompleted(String inputWord) {
+        payPasswordDialog.dismiss();
+        Requester.exchangeDiamondCoinByAddress(AppDataController.getUserInfo().getWalletAddr(), address,
+                Double.parseDouble(amountStr), new DataCallBack<MatherResponse>() {
+                    @Override
+                    protected void onHandleSuccess(MatherResponse data) {
+                        Toast.makeText(activity, "转账成功", Toast.LENGTH_SHORT).show();
+                        activity.finish();
+                    }
+
+                    @Override
+                    protected void onHandleError(BaseApiException e) {
+                        super.onHandleError(e);
+                        Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    public void onPayCancel() {
+        Toast.makeText(activity, "支付取消", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onForgotPayPwd() {
+        startActivityForResult(EditPayPasswordActivity.class,REQUEST_SET_PAY_PASSWORD);
     }
 }

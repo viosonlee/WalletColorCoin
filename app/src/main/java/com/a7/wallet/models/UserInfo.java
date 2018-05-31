@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 
 import lee.vioson.network.core.BaseResponse;
 
@@ -12,7 +13,7 @@ import lee.vioson.network.core.BaseResponse;
  * on 2018/5/23.
  * for
  */
-public class UserInfo extends BaseResponse {
+public class UserInfo extends MatherResponse {
 
     /**
      * accountName : a
@@ -62,6 +63,16 @@ public class UserInfo extends BaseResponse {
     private String token;
     @Expose
     private String walletAddr;
+    @Expose
+    private int payPwdBind;//1有0没有
+
+    public int getPayPwdBind() {
+        return payPwdBind;
+    }
+
+    public void setPayPwdBind(int payPwdBind) {
+        this.payPwdBind = payPwdBind;
+    }
 
     public String getAccountName() {
         return accountName;
@@ -81,6 +92,12 @@ public class UserInfo extends BaseResponse {
 
     public BigDecimal getDiamondCoin() {
         return diamondCoin;
+    }
+
+    //保留两位小数
+    public String getDiamondCoinAmount() {
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        return decimalFormat.format(diamondCoin);
     }
 
     public void setDiamondCoin(BigDecimal diamondCoin) {

@@ -6,14 +6,19 @@ import android.text.TextUtils;
 import com.a7.wallet.App;
 import com.a7.wallet.models.LoginInfo;
 import com.a7.wallet.models.UserInfo;
+import com.a7.wallet.models.UserInfoResponse;
+import com.a7.wallet.network.DataCallBack;
+import com.a7.wallet.network.Requester;
+import com.a7.wallet.views.acitivities.LoginActivity;
 
+import lee.vioson.network.core.BaseApiException;
 import lee.vioson.network.utils.JSONUtils;
 import lee.vioson.network.utils.SpUtil;
 
 /**
  * Created by viosonlee
  * on 2017/10/28.
- * todo app数据
+ * for app数据
  */
 
 public class AppDataController {
@@ -70,6 +75,15 @@ public class AppDataController {
         return SpUtil.with(App.APP_CONTEXT).getBoolean(APP_DATA_TABLE, AUTO_LOGIN, false);
     }
 
+    public static boolean hasPayPwd() {
+        return getUserInfo().getPayPwdBind() == 1;
+    }
+
+    public static void setHasPayPasswordBind(boolean has) {
+        UserInfo userInfo = getUserInfo();
+        userInfo.setPayPwdBind(has ? 1 : 0);
+        saveUserInfo(userInfo);
+    }
 
     public static void logout() {
         saveUserInfo(null);
@@ -82,5 +96,21 @@ public class AppDataController {
 
     public static String getSafePassword() {
         return SpUtil.with(App.APP_CONTEXT).getString(APP_DATA_TABLE, SAFE_PASSWORD);
+    }
+
+    public static void refreshToken() {
+        Requester.login(getLoginInfo().phone, getLoginInfo().password, 1, new DataCallBack<UserInfoResponse>() {
+            @Override
+            protected void onHandleSuccess(UserInfoResponse data) {
+                saveUserInfo(data.user);
+            }
+
+            @Override
+            protected void onHandleError(BaseApiException e) {
+                super.onHandleError(e);
+                logout();
+                LoginActivity.reLogin(App.APP_CONTEXT);
+            }
+        });
     }
 }

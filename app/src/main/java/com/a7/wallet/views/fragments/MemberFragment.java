@@ -11,8 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.a7.wallet.R;
+import com.a7.wallet.models.MatherResponse;
+import com.a7.wallet.network.DataCallBack;
 import com.a7.wallet.network.Requester;
 import com.a7.wallet.utils.AppDataController;
+import com.a7.wallet.views.acitivities.EditPayPasswordActivity;
 import com.a7.wallet.views.acitivities.ExchangeHistoryActivity;
 import com.a7.wallet.views.acitivities.LoginActivity;
 
@@ -56,12 +59,17 @@ public class MemberFragment extends Fragment {
         logoutBtn = view.findViewById(R.id.logout);
         logoutBtn.setVisibility(AppDataController.isLogin() ? View.VISIBLE : View.GONE);
         memberAmount = view.findViewById(R.id.assets_number);
-        memberAmount.setText(AppDataController.getUserInfo().getDiamondCoin() + "");
+        memberAmount.setText(AppDataController.getUserInfo().getDiamondCoinAmount());
     }
 
     private void initEvent(View view) {
         logoutBtn.setOnClickListener(this::logout);
         view.findViewById(R.id.exchange_list).setOnClickListener(this::exchangeList);
+        view.findViewById(R.id.reset_pay_password).setOnClickListener(this::resetPayPwd);
+    }
+
+    private void resetPayPwd(View view) {
+        startActivity(new Intent(getContext(), EditPayPasswordActivity.class));
     }
 
     private void exchangeList(View view) {
@@ -69,9 +77,9 @@ public class MemberFragment extends Fragment {
     }
 
     private void logout(View view) {
-        Requester.logout(new BaseObserver<BaseResponse>() {
+        Requester.logout(new DataCallBack<MatherResponse>() {
             @Override
-            protected void onHandleSuccess(BaseResponse data) {
+            protected void onHandleSuccess(MatherResponse data) {
                 AppDataController.logout();
                 startActivity(new Intent(getContext(), LoginActivity.class));
                 getActivity().finish();

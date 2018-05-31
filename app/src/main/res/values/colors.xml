@@ -11,4 +11,5 @@
     <color name="moneyTxtColor">#ffffff</color>
     <color name="buttonTxtColor">#ffffff</color>
     <color name="lineColor">#212528</color>
+    <color name="whiteLineColor">#a9a9a9</color>
 </resources>

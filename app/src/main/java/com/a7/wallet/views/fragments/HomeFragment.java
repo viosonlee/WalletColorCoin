@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.a7.wallet.R;
 import com.a7.wallet.models.Coin;
+import com.a7.wallet.models.QrData;
 import com.a7.wallet.views.acitivities.ExchangeActivity;
 import com.a7.wallet.views.acitivities.PersonQRCodeActivity;
 import com.a7.wallet.views.widgets.BaseRecyclerViewAdapter;
@@ -23,6 +25,8 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lee.vioson.network.utils.JSONUtils;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -112,7 +116,16 @@ public class HomeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SCAN && resultCode == RESULT_OK) {
-            Toast.makeText(getActivity(), data.getStringExtra("barCode"), Toast.LENGTH_LONG).show();
+//            Toast.makeText(getActivity(), data.getStringExtra("barCode"), Toast.LENGTH_LONG).show();
+            String barCode = data.getStringExtra("barCode");
+            if (!TextUtils.isEmpty(barCode)) {
+                try {
+                    QrData qrData = JSONUtils.fromJson(barCode, QrData.class);
+                    ExchangeActivity.launch(getActivity(), qrData);
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "二维码错误", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 
