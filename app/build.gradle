@@ -38,15 +38,18 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
-//    implementation 'com.github.viosonlee:networklibrary:1.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'//非json数据请求
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.github.viosonlee:networklibrary:1.0.5'
+
     implementation 'com.github.shenyuanqing.zxing:zxing-simplify:1.0.5'
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     implementation 'com.leo.gesturelibray:GestureLibray:1.1.1'
-    implementation project(path: ':network')
+
+    //implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
+//    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+//    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+//    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+//    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'//非json数据请求
+//    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    //implementation project(path: ':network')
+
 }
